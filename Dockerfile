@@ -17,4 +17,4 @@ EXPOSE 5000
 
 # Use gunicorn in production instead of Flask's dev server
 RUN pip install --no-cache-dir gunicorn
-CMD gunicorn --bind 0.0.0.0:${PORT} --workers 2 --timeout 30 app:app
+CMD gunicorn --bind 0.0.0.0:${PORT} --workers 1 --threads 4 --timeout 60 app:app
