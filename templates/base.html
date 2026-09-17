@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}TTB Label Verification{% endblock %}</title>
+    <style>
+        /* Deliberately plain, high-contrast, large-text styling.
+           Sarah's benchmark: "my mother could figure it out." */
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 24px;
+            background: #f7f7f7;
+            color: #1a1a1a;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+        h1 { font-size: 28px; }
+        h2 { font-size: 22px; margin-top: 32px; }
+        nav { margin-bottom: 24px; }
+        nav a {
+            margin-right: 16px;
+            font-size: 18px;
+            color: #0b4f8a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover { text-decoration: underline; }
+        .card {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        label { display: block; margin-top: 14px; font-weight: bold; }
+        input[type=text], input[type=file] {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            margin-top: 6px;
+            box-sizing: border-box;
+        }
+        button {
+            margin-top: 20px;
+            padding: 14px 24px;
+            font-size: 20px;
+            background: #0b4f8a;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        button:hover { background: #093a66; }
+        .error {
+            background: #fdecea;
+            border: 1px solid #f5b3ab;
+            color: #7a1a10;
+            padding: 14px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        .verdict {
+            font-size: 26px;
+            font-weight: bold;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .verdict.APPROVED { background: #e3f5e1; color: #1e5c1a; }
+        .verdict.REJECTED { background: #fdecea; color: #7a1a10; }
+        .verdict.NEEDS_REVIEW { background: #fff6dc; color: #7a5c00; }
+        .verdict.NO_IMAGE_FOUND { background: #eeeeee; color: #444; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th, td { text-align: left; padding: 10px; border-bottom: 1px solid #ddd; font-size: 16px; }
+        .status-match { color: #1e5c1a; font-weight: bold; }
+        .status-mismatch { color: #b02a1e; font-weight: bold; }
+        .status-not_found { color: #a67900; font-weight: bold; }
+        .meta { color: #666; font-size: 14px; margin-top: 20px; }
+        details { margin-top: 14px; }
+        summary { cursor: pointer; font-weight: bold; color: #0b4f8a; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}">Single Label Review</a>
+        <a href="{{ url_for('batch') }}">Batch Review</a>
+    </nav>
+    {% block content %}{% endblock %}
+</body>
+</html>
