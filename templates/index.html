@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Label Review{% endblock %}
+{% block content %}
+    <h1>Label Review</h1>
+    <p>Upload a label photo and enter what the application says. The tool will check whether they match.</p>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <div class="card">
+        <form method="POST" enctype="multipart/form-data">
+            <label for="label_image">Label Image (PNG or JPG)</label>
+            <input type="file" id="label_image" name="label_image" accept=".png,.jpg,.jpeg" required>
+
+            <label for="brand_name">Brand Name (from application)</label>
+            <input type="text" id="brand_name" name="brand_name" placeholder="e.g. OLD TOM DISTILLERY">
+
+            <label for="class_type">Class / Type (from application)</label>
+            <input type="text" id="class_type" name="class_type" placeholder="e.g. Kentucky Straight Bourbon Whiskey">
+
+            <label for="alcohol_content">Alcohol Content (from application)</label>
+            <input type="text" id="alcohol_content" name="alcohol_content" placeholder="e.g. 45%">
+
+            <label for="net_contents">Net Contents (from application)</label>
+            <input type="text" id="net_contents" name="net_contents" placeholder="e.g. 750 mL">
+
+            <button type="submit">Check Label</button>
+        </form>
+    </div>
+{% endblock %}
