@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Review Result{% endblock %}
+{% block content %}
+    <h1>Review Result</h1>
+
+    <div class="verdict {{ verdict }}">
+        {% if verdict == "APPROVED" %}
+            All fields match.
+        {% elif verdict == "REJECTED" %}
+            Mismatch found — needs agent attention.
+        {% else %}
+            Some fields could not be fully checked — needs agent review.
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <table>
+            <tr>
+                <th>Field</th>
+                <th>Application Says</th>
+                <th>Found on Label</th>
+                <th>Status</th>
+            </tr>
+            {% for r in results %}
+            <tr>
+                <td>{{ r.field }}</td>
+                <td>{{ r.application_value }}</td>
+                <td>{{ r.label_value }}</td>
+                <td class="status-{{ r.status }}">{{ r.status | replace("_", " ") | upper }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <details>
+            <summary>Why did each field get this result?</summary>
+            <ul>
+                {% for r in results %}
+                <li><strong>{{ r.field }}:</strong> {{ r.detail }}</li>
+                {% endfor %}
+            </ul>
+        </details>
+
+        <details>
+            <summary>Raw OCR text (what the tool read off the label)</summary>
+            <pre style="white-space: pre-wrap; background:#f0f0f0; padding:12px; border-radius:6px;">{{ ocr_text }}</pre>
+        </details>
+    </div>
+
+    <p class="meta">
+        OCR confidence: {{ confidence }}% &middot; Processed in {{ elapsed }}s
+        {% if confidence < 60 %}
+            — <strong>Low confidence: consider requesting a clearer photo.</strong>
+        {% endif %}
+    </p>
+
+    <p><a href="{{ url_for('index') }}">&larr; Check another label</a></p>
+{% endblock %}
