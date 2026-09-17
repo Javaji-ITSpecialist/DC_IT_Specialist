@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Batch Review{% endblock %}
+{% block content %}
+    <h1>Batch Review</h1>
+    <p>For large importers submitting many applications at once. Upload a CSV of applications and all of the
+       corresponding label images in one go.</p>
+
+    {% if error %}
+        <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <div class="card">
+        <form method="POST" enctype="multipart/form-data">
+            <label for="applications_csv">Applications CSV</label>
+            <input type="file" id="applications_csv" name="applications_csv" accept=".csv" required>
+
+            <label for="label_images">Label Images (select all at once)</label>
+            <input type="file" id="label_images" name="label_images" accept=".png,.jpg,.jpeg" multiple required>
+
+            <button type="submit">Check All Labels</button>
+        </form>
+    </div>
+
+    <div class="card">
+        <h2>CSV Format</h2>
+        <p>Each row needs an <code>application_id</code> that matches the filename (without extension) of its
+           label image. For example, application_id <code>APP-1001</code> should have an image named
+           <code>APP-1001.jpg</code>.</p>
+        <table>
+            <tr><th>application_id</th><th>brand_name</th><th>class_type</th><th>alcohol_content</th><th>net_contents</th></tr>
+            <tr><td>APP-1001</td><td>OLD TOM DISTILLERY</td><td>Kentucky Straight Bourbon Whiskey</td><td>45%</td><td>750 mL</td></tr>
+        </table>
+        <p><a href="{{ url_for('static', filename='sample_applications.csv') }}">Download a sample CSV</a></p>
+    </div>
+{% endblock %}
